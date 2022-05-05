@@ -69,7 +69,7 @@ max_length = 34
 model = load_model('models/model_vgg.h5')
 # load and prepare the photograph
 
-
+#This function takes in an image and generates a caption using vgg16 model.
 def get_captions_vgg(image):
     filename = "webapp/static/uploads/" + image
     photo = extract_features(filename)

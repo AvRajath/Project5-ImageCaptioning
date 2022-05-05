@@ -69,7 +69,7 @@ max_length = 34
 model = load_model('models/model_inception.h5')
 # load and prepare the photograph
 
-
+#This function takes in an image and generates a caption using inceptionv3 model.
 def get_captions_inception(image):
     filename = "webapp/static/uploads/" + image
     photo = extract_features(filename)
@@ -80,5 +80,6 @@ def get_captions_inception(image):
     description = description[1:-1]
 
     print(description)
+    #return the description string to the requesting method.
     return " ".join(description)
 
