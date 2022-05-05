@@ -51,6 +51,7 @@ def upload_image():
         return redirect(request.url)
 
 
+#This method is called when the uploaded image has to be displayed. It fetches the image and displays it on the screen.
 @app.route('/display/<filename>')
 def display_image(filename):
     # print('display_image filename: ' + filename)
