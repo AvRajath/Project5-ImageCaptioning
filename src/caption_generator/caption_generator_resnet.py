@@ -1,21 +1,21 @@
 from pickle import load
 from numpy import argmax
 from keras.preprocessing.sequence import pad_sequences
-from keras.applications.inception_v3 import InceptionV3
+from keras.applications.resnet import ResNet50
 from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
-from keras.applications.inception_v3 import preprocess_input
+from keras.applications.resnet import preprocess_input
 from keras.models import Model
 from keras.models import load_model
 
 # extract features from each photo in the directory
 def extract_features(filename):
     # load the model
-    model = InceptionV3(weights='imagenet')
+    model = ResNet50()
     # re-structure the model
     model = Model(inputs=model.inputs, outputs=model.layers[-2].output)
     # load the photo
-    image = load_img(filename, target_size=(299, 299))
+    image = load_img(filename, target_size=(224, 224))
     # convert the image pixels to a numpy array
     image = img_to_array(image)
     # reshape data for the model
@@ -62,15 +62,15 @@ def generate_desc(model, tokenizer, photo, max_length):
     return in_text
 
 # load the tokenizer
-tokenizer = load(open('tokenizer.pkl', 'rb'))
+tokenizer = load(open('tokens/tokenizer_resnet.pkl', 'rb'))
 # pre-define the max sequence length (from training)
 max_length = 34
 # load the model
-model = load_model('model_19.h5')
+model = load_model('models/model_resnet.h5')
 # load and prepare the photograph
 
 
-def get_captions(image):
+def get_captions_resnet(image):
     filename = "webapp/static/uploads/" + image
     photo = extract_features(filename)
     # generate description

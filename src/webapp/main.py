@@ -5,6 +5,7 @@ import urllib.request
 sys.path.insert(0, '..')
 from src.caption_generator.caption_generator_inception import get_captions_inception
 from src.caption_generator.caption_generator_vgg import get_captions_vgg
+from src.caption_generator.caption_generator_resnet import get_captions_resnet
 from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 
@@ -33,12 +34,12 @@ def upload_image():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         # print('upload_image filename: ' + filename)
-        inception_description = "Inception_V3 Caption: " + get_captions_inception(filename)
-        #description = inception_description
-        flash(inception_description)
-        vgg16_description = "VGG16 Caption:        " + get_captions_vgg(filename)
-        resnet_description = "Resnet-50 Caption:    "
-        flash(vgg16_description)
+        inception_description = "Inception-V3 Caption: " + get_captions_inception(filename)
+        # #description = inception_description
+        # flash(inception_description)
+        vgg16_description = "VGG-16 Caption:        " + get_captions_vgg(filename)
+        resnet_description = "Resnet-50 Caption:    " + get_captions_resnet(filename)
+        # flash(vgg16_description)
         flash(resnet_description)
         return render_template('upload.html', filename=filename)
     else:
